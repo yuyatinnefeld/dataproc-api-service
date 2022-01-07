@@ -14,9 +14,27 @@ class WorkflowTemplates(str, Enum):
     wf_temp2 = "data_processing_wf_temp"
     wf_temp3 = "data_validation_wf_temp"
 
+
+description = """
+Dataproc Service API helps you do awesome stuff. 🚀
+
+## Dataproc 
+Dataproc is a fully managed and highly scalable GCP service for running Apache Spark, Apache Flink, Presto, and 30+ open source tools and frameworks. 
+
+## Users
+
+You will be able to:
+
+* **Create dataproc clusters**.
+* **List all dataproc clusters**.
+* **Get a dataproc cluster**.
+* **Delete a dataproc cluster**.
+* **Use dataproc workflow template** (you need to create demo workflow templates).
+"""
+
 app = FastAPI(
     title="Dataproc Service API",
-    description="This is a Google Cloud Dataproc Service API, built with FastAPI",
+    description=description,
     version="0.0.1",
     contact={
         "name": "Yuya Tinnefeld",
@@ -24,8 +42,8 @@ app = FastAPI(
         "email": "yuyatinnefeld@gmail.com",
     },
     license_info={
-        "name": "LICENCE INFO - MIT",
-        "url": "https://github.com/yuyatinnefeld/dataproc-api-service/LICENCE",
+        "name": "Visit Github",
+        "url": "https://github.com/yuyatinnefeld/dataproc-api-service",
     },
     
 )
