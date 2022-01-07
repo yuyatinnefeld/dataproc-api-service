@@ -14,7 +14,21 @@ class WorkflowTemplates(str, Enum):
     wf_temp2 = "data_processing_wf_temp"
     wf_temp3 = "data_validation_wf_temp"
 
-app = FastAPI()
+app = FastAPI(
+    title="Dataproc Service API",
+    description="This is a Google Cloud Dataproc Service API, built with FastAPI",
+    version="0.0.1",
+    contact={
+        "name": "Yuya Tinnefeld",
+        "url": "https://yuyatinnefeld-resume-xljcoys6wa-ew.a.run.app",
+        "email": "yuyatinnefeld@gmail.com",
+    },
+    license_info={
+        "name": "LICENCE INFO - MIT",
+        "url": "https://github.com/yuyatinnefeld/dataproc-api-service/LICENCE",
+    },
+    
+)
 
 @app.get("/")
 def read_root():

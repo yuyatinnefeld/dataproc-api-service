@@ -2,6 +2,8 @@
 This Project is built with FastAPI. You can manage the Dataproc Service in Swagger UI.
 
 ## Essential Pieces of the Software
+You need these softwares
+
 - GCP Project (ex. yt-demo-dev)
 - GCP Service Account Json Key (stored in conf/creds.json)
 - Python 3.7 or older version
@@ -9,12 +11,18 @@ This Project is built with FastAPI. You can manage the Dataproc Service in Swagg
 - Gitlab
 - Docker
 
-## Setup Environment Variables
+## Setup
+
+### Setup Service Account
+1. create a service account
+2. create a ./conf directory in the project
+3. download this in the ./conf direcotry.
+### Setup Environment Variables
 ```bash
 vi settings.py
 ```
 
-## Setup the Python Environment
+### Setup the Python Environment
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -22,13 +30,15 @@ python3 -m pip install -r requirements.txt
 export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/conf/creds.json"
 ```
 
-## Setup the GCP Environment
+### Setup the GCP Environment
 ```bash
 PROJECT_ID="yt-demo-dev"
 REGION="europe-west1"
 SERVICE_ACCOUNT_NAME="demo-dataproc"
 GCP_SERVICE_ACCOUNT_KEY_DEV=${GOOGLE_APPLICATION_CREDENTIALS}
-
+```
+#### Create a Dataproc Service Account
+```bash
 gcloud auth activate-service-account --key-file ${GCP_SERVICE_ACCOUNT_KEY_DEV}
 gcloud config set project ${PROJECT_ID}
 
@@ -47,6 +57,10 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --member="serviceAccount:${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com" \
     --role="roles/dataproc.editor"
+```
+
+#### Configure the Dataproc Environment
+```bash
 
 # upload a autoscaling cluster
 POLICY_NAME="yt-demo-dev-autoscaling-policy"
@@ -95,7 +109,7 @@ http://127.0.0.1:8000/docs
 
 ```
 
-## Dockerize Local Run
+### Dockerize Local Run
 
 1. Open the Dockerfile 
 2. Activate `COPY ./conf /code/conf` cmd
@@ -106,8 +120,7 @@ http://127.0.0.1:8000/docs
 docker build -t fastapi-image .
 docker run -it -p 8080:8080 -d fastapi-image
 docker ps
-# check and test the API
-http://127.0.0.1:8080/docs
+curl -i http://127.0.0.1:8080
 ```
 
 ## Deploy to Cloud Run (NoOps)
@@ -117,3 +130,5 @@ http://127.0.0.1:8080/docs
 - service name: dataproc-api-service
 - region: europe-west1
 - url: gcr.io/yt-demo-dev/dataproc-api-service
+
+## Open the Cloud Run and click the service URL
