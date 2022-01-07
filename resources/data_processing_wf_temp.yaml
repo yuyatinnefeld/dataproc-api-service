@@ -1,0 +1,27 @@
+jobs:
+- pysparkJob:
+    mainPythonFileUri: gs://yt-demo-dev-dataproc-temp/src/data_processing_job.py 
+  stepId: data-processing-job
+labels:
+  project: yt-demo-dev-dataproc
+placement:
+  managedCluster:
+    clusterName: yt-demo-wf-temp-dev-cluster
+    config:
+      configBucket: yt-demo-dev-dataproc-staging
+      tempBucket: yt-demo-dev-dataproc-temp
+      gceClusterConfig:
+        zoneUri: europe-west1-b
+      masterConfig:
+        diskConfig:
+          bootDiskSizeGb: 50
+        machineTypeUri: n1-standard-4
+      softwareConfig:
+        imageVersion: '1.4'
+        properties:
+          dataproc:pip.packages: tokenizers==0.10.1,datasets==1.4.1
+      workerConfig:
+        diskConfig:
+          bootDiskSizeGb: 50
+        machineTypeUri: n1-standard-4
+        numInstances: 2
